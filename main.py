@@ -7,3 +7,17 @@
 # Users will also get detailed information about each algorithm and how it operates
 
 import tkinter as tk
+
+WIN_RES = 600
+WIN_RES_DIFF = WIN_RES / 2
+
+w = tk.Tk()
+w.title("AlgoViz")
+width = w.winfo_screenwidth()
+height = w.winfo_screenheight()
+
+windowWidth = int(width / 2) - int((WIN_RES * 2) / 2)
+windowHeight = int(height / 2) - int(WIN_RES / 2)
+w.geometry(f"{WIN_RES * 2}x{WIN_RES}+{windowWidth}+{windowHeight}")
+
+w.mainloop()
