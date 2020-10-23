@@ -73,5 +73,5 @@ bubble_button.grid(row=2, column=0, padx=5, pady=5)
 insertion_button.grid(row=2, column=1, padx=5, pady=5)
 merge_button.grid(row=2, column=2, padx=5, pady=5)
 
-f.pack()
+f.pack(expand=True)
 w.mainloop()
