@@ -47,6 +47,19 @@ class MainView(tk.Frame):
 
 # BUTTON EVENTS
 def bubble_page(event):
+    bubble_w = tk.Tk()
+    bubble_w.configure(bg=GRAY)
+    width = bubble_w.winfo_screenwidth()
+    height = bubble_w.winfo_screenheight()
+    windowWidth = int(width / 2) - int((WIN_RES + 150) / 2)
+    windowHeight = int(height / 2) - int(WIN_RES / 2)
+    bubble_w.geometry(f"{WIN_RES + 150}x{WIN_RES}+{windowWidth}+{windowHeight}")
+    bubble_w.wm_title("Great!")
+    label = tk.Label(bubble_w, text="Awesome! You're good to go!")
+    label.pack()
+    okay_button = tk.Button(bubble_w, text="Okay", command=bubble_w.destroy)
+    okay_button.pack()
+    bubble_w.mainloop()
     print("Bubble Sort Page")
 
 
