@@ -10,6 +10,10 @@ import tkinter as tk
 import tkinter.font as tkFont
 from tkinter import *
 
+# CONSTANTS
+WIN_RES = 600
+GRAY = '#C0C0C0'
+
 
 class MainView(tk.Frame):
     def __init__(self, *args, **kwargs):
@@ -36,17 +40,19 @@ class MainView(tk.Frame):
         merge_button = tk.Button(main, text="Merge Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3)
         merge_button.bind("<Button-1>", merge_page)
 
+        # PLACEMENTS
         title.grid(row=0, column=1)
         selection.grid(row=1, column=1)
         bubble_button.grid(row=2, column=0, padx=5, pady=5)
         insertion_button.grid(row=2, column=1, padx=5, pady=5)
         merge_button.grid(row=2, column=2, padx=5, pady=5)
-
         main.pack(expand=True)
 
 
 # BUTTON EVENTS
 def bubble_page(event):
+
+    # POPUP WINDOW SETTINGS
     bubble_w = tk.Tk()
     bubble_w.configure(bg=GRAY)
     width = bubble_w.winfo_screenwidth()
@@ -54,13 +60,22 @@ def bubble_page(event):
     windowWidth = int(width / 2) - int((WIN_RES + 150) / 2)
     windowHeight = int(height / 2) - int(WIN_RES / 2)
     bubble_w.geometry(f"{WIN_RES + 150}x{WIN_RES}+{windowWidth}+{windowHeight}")
-    bubble_w.wm_title("Great!")
-    label = tk.Label(bubble_w, text="Awesome! You're good to go!")
-    label.pack()
-    okay_button = tk.Button(bubble_w, text="Okay", command=bubble_w.destroy)
-    okay_button.pack()
+    bubble_w.title("Bubble Sort")
+
+    # FONTS
+    bubbleTitleStyle = tkFont.Font(family="Lucida Grande", size=50)
+    backButtonStyle = tkFont.Font(family="Lucida Grande", size=15)
+
+    # USER INTERFACE
+    win = tk.Frame(bubble_w, background=GRAY)
+    bubble_title = tk.Label(win, text="Bubble Sort", background=GRAY, font=bubbleTitleStyle)
+    back_button = tk.Button(win, text="X", borderwidth=1, width=2, height=1, relief="solid", bg=GRAY, font=backButtonStyle, command=bubble_w.destroy)
+
+    # PLACEMENT
+    bubble_title.grid(row=0, column=1)
+    back_button.grid(row=0, column=0)
+    win.pack()
     bubble_w.mainloop()
-    print("Bubble Sort Page")
 
 
 def insertion_page(event):
@@ -70,10 +85,6 @@ def insertion_page(event):
 def merge_page(event):
     print("Merge Sort Page")
 
-
-# CONSTANTS
-WIN_RES = 600
-GRAY = '#C0C0C0'
 
 if __name__ == "__main__":
 
