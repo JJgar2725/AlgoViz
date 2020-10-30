@@ -53,7 +53,7 @@ class MainView(tk.Frame):
 def bubble_page(event):
 
     # POPUP WINDOW SETTINGS
-    bubble_w = tk.Tk()
+    bubble_w = tk.Toplevel(root)
     bubble_w.configure(bg=GRAY)
     width = bubble_w.winfo_screenwidth()
     height = bubble_w.winfo_screenheight()
@@ -67,14 +67,12 @@ def bubble_page(event):
     backButtonStyle = tkFont.Font(family="Lucida Grande", size=15)
 
     # USER INTERFACE
-    win = tk.Frame(bubble_w, background=GRAY)
-    bubble_title = tk.Label(win, text="Bubble Sort", background=GRAY, font=bubbleTitleStyle)
-    back_button = tk.Button(win, text="X", borderwidth=1, width=2, height=1, relief="solid", bg=GRAY, font=backButtonStyle, command=bubble_w.destroy)
+    bubble_title = tk.Label(bubble_w, text="Bubble Sort", background=GRAY, font=bubbleTitleStyle)
+    bubble_title.place(x=100, y=190)
+    back_button = tk.Button(bubble_w, text="X", borderwidth=1, width=2, height=1, relief="solid", bg=GRAY, font=backButtonStyle, command=bubble_w.destroy)
+    back_button.place(x=35, y=200)
 
     # PLACEMENT
-    bubble_title.grid(row=0, column=1)
-    back_button.grid(row=0, column=0)
-    win.pack()
     bubble_w.mainloop()
 
 
