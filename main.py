@@ -8,6 +8,7 @@
 
 import tkinter as tk
 import tkinter.font as tkFont
+from tkinter import messagebox
 from tkinter import *
 
 # CONSTANTS
@@ -48,6 +49,16 @@ class MainView(tk.Frame):
         merge_button.grid(row=2, column=2, padx=5, pady=5)
         main.pack(expand=True)
 
+def display_info(event):
+    info_win = tk.Toplevel(root)
+    info_win.configure(bg="white")
+    width = info_win.winfo_screenwidth()
+    height = info_win.winfo_screenheight()
+    windowWidth = int(width / 2) - int((200 + 150) / 2)
+    windowHeight = int(height / 2) - int(200 / 2)
+    info_win.geometry(f"{200 + 150}x{200}+{windowWidth}+{windowHeight}")
+    info_win.title("Algorithm Info")
+    
 
 # BUTTON EVENTS
 def bubble_page(event):
@@ -63,14 +74,21 @@ def bubble_page(event):
     bubble_w.title("Bubble Sort")
 
     # FONTS
-    bubbleTitleStyle = tkFont.Font(family="Lucida Grande", size=50)
-    backButtonStyle = tkFont.Font(family="Lucida Grande", size=15)
+    bubbleTitleStyle = tkFont.Font(family="Lucida Grande", size=15)
+    backButtonStyle = tkFont.Font(family="Lucida Grande", size=10)
 
     # USER INTERFACE
     bubble_title = tk.Label(bubble_w, text="Bubble Sort", background=GRAY, font=bubbleTitleStyle)
-    bubble_title.place(x=100, y=190)
+    bubble_title.place(x=315, y=0)
     back_button = tk.Button(bubble_w, text="X", borderwidth=1, width=2, height=1, relief="solid", bg=GRAY, font=backButtonStyle, command=bubble_w.destroy)
-    back_button.place(x=35, y=200)
+    back_button.place(x=10, y=10)
+
+    canvas = Canvas(bubble_w, width=650, height=350, bg="black")
+    canvas.place(x=45, y=50)
+
+    info_button = tk.Button(bubble_w, text="Information!", borderwidth=1, width=10, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
+    info_button.bind("<Button-1>", display_info)
+    info_button.place(x=650, y=10)
 
     # PLACEMENT
     bubble_w.mainloop()
