@@ -52,13 +52,26 @@ class MainView(tk.Frame):
 
 def display_info(event):
     info_win = tk.Toplevel(root)
-    info_win.configure(bg="white")
+    info_win.configure(bg=GRAY)
     width = info_win.winfo_screenwidth()
     height = info_win.winfo_screenheight()
     windowWidth = int(width / 2) - int((200 + 150) / 2)
     windowHeight = int(height / 2) - int(200 / 2)
-    info_win.geometry(f"{200 + 150}x{200}+{windowWidth}+{windowHeight}")
+    info_win.geometry(f"{200 + 150}x{150}+{windowWidth}+{windowHeight}")
+    inputStyle = tkFont.Font(family="Lucida Grande", size=15)
+    backButtonStyle = tkFont.Font(family="Lucida Grande", size=12)
     info_win.title("Algorithm Info")
+    label = tk.Label(info_win, text="Time Complexity:", bg=GRAY, font=inputStyle)
+    label.pack(side="top", fill="x")
+    best = tk.Label(info_win, text="Best: O(n)", bg=GRAY, font=backButtonStyle)
+    best.pack(side="top", fill="x")
+    worst = tk.Label(info_win, text="Worst: O(n^2)", bg=GRAY, font=backButtonStyle)
+    worst.pack(side="top", fill="x")
+    space = tk.Label(info_win, text="Space Complexity:", bg=GRAY, font=inputStyle)
+    space.pack(side="top", fill="x")
+    space_value = tk.Label(info_win, text="O(1)", bg=GRAY, font=backButtonStyle)
+    space_value.pack(side="top", fill="x")
+    info_win.mainloop()
     
 def draw_data(data, canvas):
     canvas.delete("all")
