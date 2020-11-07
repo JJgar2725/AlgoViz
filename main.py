@@ -10,6 +10,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 from tkinter import messagebox
 from tkinter import *
+from bubblesort import bubble_sort
 import random
 
 # CONSTANTS
@@ -73,7 +74,7 @@ def display_info(event):
     space_value.pack(side="top", fill="x")
     info_win.mainloop()
     
-def draw_data(data, canvas):
+def draw_data(data, canvas, sort):
     canvas.delete("all")
     c_height = 350
     c_width = 650
@@ -88,15 +89,22 @@ def draw_data(data, canvas):
         y1 = c_height
 
         canvas.create_rectangle(x0, y0, x1, y1, fill="blue")
-        canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i]))    
+        canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i])) 
+    sort.update_idletasks()
 
-def shuffle_data(event, canvas, min_value, max_value, data_value):
+def shuffle_data(event, canvas, min_value, max_value, data_value, sort):
     min_num = int(min_value.get())
     max_num = int(max_value.get())
     data_num = int(data_value.get())
 
     data = random.sample(range(min_num, max_num), data_num)
-    draw_data(data, canvas)
+    print(data)
+    draw_data(data, canvas, sort)
+
+def start_bubble(event, canvas, data, sort):
+    print(data)
+    bubble_sort(data, draw_data, canvas, sort)
+    print(data)
 
 # BUTTON EVENTS
 def bubble_page():
@@ -152,12 +160,16 @@ def bubble_page():
     max_num = int(max_value.get())
     data_num = int(data_value.get())
     data = random.sample(range(min_num, max_num), data_num)
-    draw_data(data, canvas)
+    draw_data(data, canvas, bubble_w)
 
     # SHUFFLE BUTTON
     shuffle_button = tk.Button(bubble_w, text="Shuffle!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
     shuffle_button.place(x=575, y=10)
-    shuffle_button.bind("<Button-1>", lambda event, a=canvas, b=min_value, c=max_value, d=data_value: shuffle_data(event, a, b, c, d))
+    shuffle_button.bind("<Button-1>", lambda event, a=canvas, b=min_value, c=max_value, d=data_value, e=bubble_w: shuffle_data(event, a, b, c, d, e))
+
+    start_button = tk.Button(bubble_w, text="Start!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
+    start_button.place(x=500, y=10)
+    start_button.bind("<Button-1>", lambda event, a=canvas, b=data, c=bubble_w: start_bubble(event, a, b, c))
 
     # PLACEMENT
     bubble_w.mainloop()
