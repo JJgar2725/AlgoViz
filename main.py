@@ -16,6 +16,7 @@ import random
 # CONSTANTS
 WIN_RES = 600
 GRAY = '#C0C0C0'
+arr = random.sample(range(0, 100), 10)
 
 
 class MainView(tk.Frame):
@@ -93,18 +94,17 @@ def draw_data(data, canvas, sort):
     sort.update_idletasks()
 
 def shuffle_data(event, canvas, min_value, max_value, data_value, sort):
+    global arr
     min_num = int(min_value.get())
     max_num = int(max_value.get())
     data_num = int(data_value.get())
 
-    data = random.sample(range(min_num, max_num), data_num)
-    print(data)
-    draw_data(data, canvas, sort)
+    arr = random.sample(range(min_num, max_num), data_num)
+    draw_data(arr, canvas, sort)
 
-def start_bubble(event, canvas, data, sort):
-    print(data)
-    bubble_sort(data, draw_data, canvas, sort)
-    print(data)
+def start_bubble(event, canvas, sort):
+    global arr
+    bubble_sort(arr, draw_data, canvas, sort)
 
 # BUTTON EVENTS
 def bubble_page():
@@ -156,11 +156,8 @@ def bubble_page():
     data_value.insert(0, "10")
 
     # INITIAL DATA
-    min_num = int(min_value.get())
-    max_num = int(max_value.get())
-    data_num = int(data_value.get())
-    data = random.sample(range(min_num, max_num), data_num)
-    draw_data(data, canvas, bubble_w)
+    global arr
+    draw_data(arr, canvas, bubble_w)
 
     # SHUFFLE BUTTON
     shuffle_button = tk.Button(bubble_w, text="Shuffle!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
@@ -169,7 +166,7 @@ def bubble_page():
 
     start_button = tk.Button(bubble_w, text="Start!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
     start_button.place(x=500, y=10)
-    start_button.bind("<Button-1>", lambda event, a=canvas, b=data, c=bubble_w: start_bubble(event, a, b, c))
+    start_button.bind("<Button-1>", lambda event, a=canvas, b=bubble_w: start_bubble(event, a, b))
 
     # PLACEMENT
     bubble_w.mainloop()
