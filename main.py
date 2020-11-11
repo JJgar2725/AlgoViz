@@ -68,7 +68,7 @@ def display_bubble_info(event):
     space_value.pack(side="top", fill="x")
     info_win.mainloop()
     
-def draw_data(data, canvas, sort):
+def draw_data(data, canvas, sort, colors):
     canvas.delete("all")
     c_height = 350
     c_width = 650
@@ -82,7 +82,7 @@ def draw_data(data, canvas, sort):
         x1 = (i + 1) * x_width + offset
         y1 = c_height
 
-        canvas.create_rectangle(x0, y0, x1, y1, fill="blue")
+        canvas.create_rectangle(x0, y0, x1, y1, fill=colors[i])
         canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i])) 
     sort.update_idletasks()
 
@@ -93,7 +93,7 @@ def shuffle_data(event, canvas, min_value, max_value, data_value, sort):
     data_num = int(data_value.get())
 
     arr = random.sample(range(min_num, max_num), data_num)
-    draw_data(arr, canvas, sort)
+    draw_data(arr, canvas, sort, ['blue' for x in range(len(arr))])
 
 def start_bubble(event, canvas, sort):
     global arr
@@ -150,7 +150,7 @@ def bubble_page():
 
     # INITIAL DATA
     global arr
-    draw_data(arr, canvas, bubble_w)
+    draw_data(arr, canvas, bubble_w, ['blue' for x in range(len(arr))])
 
     # SHUFFLE BUTTON
     shuffle_button = tk.Button(bubble_w, text="Shuffle!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
