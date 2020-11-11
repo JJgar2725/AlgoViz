@@ -32,17 +32,10 @@ class MainView(tk.Frame):
 
         # USER INTERFACE
         title = tk.Label(main, text="AlgoViz", background=GRAY, font=fontStyle1)
-
         selection = tk.Label(main, text="Algorithms", background=GRAY, font=fontStyle2)
-
         bubble_button = tk.Button(main, text="Bubble Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=bubble_page)
-        # bubble_button.bind("<Button-1>", bubble_page)
-
         insertion_button = tk.Button(main, text="Insertion Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=insertion_page)
-        # insertion_button.bind("<Button-1>", insertion_page)
-
         merge_button = tk.Button(main, text="Merge Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=merge_page)
-        # merge_button.bind("<Button-1>", merge_page)
 
         # PLACEMENTS
         title.grid(row=0, column=1)
@@ -52,7 +45,7 @@ class MainView(tk.Frame):
         merge_button.grid(row=2, column=2, padx=5, pady=5)
         main.pack(expand=True)
 
-def display_info(event):
+def display_bubble_info(event):
     info_win = tk.Toplevel(root)
     info_win.configure(bg=GRAY)
     width = info_win.winfo_screenwidth()
@@ -63,13 +56,13 @@ def display_info(event):
     inputStyle = tkFont.Font(family="Lucida Grande", size=15)
     backButtonStyle = tkFont.Font(family="Lucida Grande", size=12)
     info_win.title("Algorithm Info")
-    label = tk.Label(info_win, text="Time Complexity:", bg=GRAY, font=inputStyle)
+    label = tk.Label(info_win, text="Time Complexity", bg=GRAY, font=inputStyle)
     label.pack(side="top", fill="x")
     best = tk.Label(info_win, text="Best: O(n)", bg=GRAY, font=backButtonStyle)
     best.pack(side="top", fill="x")
     worst = tk.Label(info_win, text="Worst: O(n^2)", bg=GRAY, font=backButtonStyle)
     worst.pack(side="top", fill="x")
-    space = tk.Label(info_win, text="Space Complexity:", bg=GRAY, font=inputStyle)
+    space = tk.Label(info_win, text="Space Complexity", bg=GRAY, font=inputStyle)
     space.pack(side="top", fill="x")
     space_value = tk.Label(info_win, text="O(1)", bg=GRAY, font=backButtonStyle)
     space_value.pack(side="top", fill="x")
@@ -134,7 +127,7 @@ def bubble_page():
     canvas.place(x=45, y=50)
 
     info_button = tk.Button(bubble_w, text="Information!", borderwidth=1, width=10, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
-    info_button.bind("<Button-1>", display_info)
+    info_button.bind("<Button-1>", display_bubble_info)
     info_button.place(x=650, y=10)
 
     min_title = tk.Label(bubble_w, text="Min Value", background=GRAY, width=10, font=inputStyle)
