@@ -17,6 +17,7 @@ import random
 WIN_RES = 600
 GRAY = '#C0C0C0'
 arr = random.sample(range(0, 100), 10)
+count = 0
 
 
 class MainView(tk.Frame):
@@ -73,8 +74,8 @@ def draw_data(data, canvas, sort, colors):
     c_height = 350
     c_width = 650
     x_width = c_width / (len(data) + 1)
-    offset = 25
-    spacing = 10
+    offset = 10
+    spacing = 5
     normalized = [i / max(data) for i in data]
     for i, height in enumerate(normalized):
         x0 = i * x_width + offset + spacing
@@ -95,9 +96,11 @@ def shuffle_data(event, canvas, min_value, max_value, data_value, sort):
     arr = random.sample(range(min_num, max_num), data_num)
     draw_data(arr, canvas, sort, ['blue' for x in range(len(arr))])
 
-def start_bubble(event, canvas, sort):
-    global arr
-    bubble_sort(arr, draw_data, canvas, sort)
+def start_bubble(event, canvas, sort, i_count):
+    global arr, count
+    count = 0
+    i_count["text"] = f"{count}"
+    bubble_sort(arr, draw_data, canvas, sort, count, i_count)
 
 # BUTTON EVENTS
 def bubble_page():
@@ -131,26 +134,32 @@ def bubble_page():
     info_button.place(x=650, y=10)
 
     min_title = tk.Label(bubble_w, text="Min Value", background=GRAY, width=10, font=inputStyle)
-    min_title.place(x=50, y=450)
+    min_title.place(x=50, y=415)
     min_value = tk.Entry(bubble_w, bg=GRAY, width=8, font=inputStyle, relief="solid")
-    min_value.place(x=155, y=450)
+    min_value.place(x=155, y=415)
     min_value.insert(0, "0")
 
     max_title = tk.Label(bubble_w, text="Max Value", background=GRAY, width=10, font=inputStyle)
-    max_title.place(x=260, y=450)
+    max_title.place(x=260, y=415)
     max_value = tk.Entry(bubble_w, bg=GRAY, width=8, font=inputStyle, relief="solid")
-    max_value.place(x=365, y=450)
+    max_value.place(x=365, y=415)
     max_value.insert(0, "100")
 
     data_title = tk.Label(bubble_w, text="Data Size", background=GRAY, width=10, font=inputStyle)
-    data_title.place(x=470, y=450)
+    data_title.place(x=470, y=415)
     data_value = tk.Entry(bubble_w, bg=GRAY, width=8, font=inputStyle, relief="solid")
-    data_value.place(x=575, y=450)
+    data_value.place(x=575, y=415)
     data_value.insert(0, "10")
 
     # INITIAL DATA
-    global arr
+    global arr, count
     draw_data(arr, canvas, bubble_w, ['blue' for x in range(len(arr))])
+
+    iteration = tk.Label(bubble_w, text="Iterations:", background=GRAY, font=bubbleTitleStyle)
+    iteration.place(x=90, y=10)
+
+    iteration_count = tk.Label(bubble_w, text=f"{count}", width=3, background=GRAY, font=bubbleTitleStyle)
+    iteration_count.place(x=200, y=10)
 
     # SHUFFLE BUTTON
     shuffle_button = tk.Button(bubble_w, text="Shuffle!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
@@ -159,8 +168,8 @@ def bubble_page():
 
     start_button = tk.Button(bubble_w, text="Start!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
     start_button.place(x=500, y=10)
-    start_button.bind("<Button-1>", lambda event, a=canvas, b=bubble_w: start_bubble(event, a, b))
-
+    start_button.bind("<Button-1>", lambda event, a=canvas, b=bubble_w, c=iteration_count: start_bubble(event, a, b, c))
+    
     # PLACEMENT
     bubble_w.mainloop()
 
