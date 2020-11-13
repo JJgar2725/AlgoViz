@@ -35,15 +35,15 @@ class MainView(tk.Frame):
         title = tk.Label(main, text="AlgoViz", background=GRAY, font=fontStyle1)
         selection = tk.Label(main, text="Algorithms", background=GRAY, font=fontStyle2)
         bubble_button = tk.Button(main, text="Bubble Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=bubble_page)
-        insertion_button = tk.Button(main, text="Insertion Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=insertion_page)
-        merge_button = tk.Button(main, text="Merge Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=merge_page)
+        # insertion_button = tk.Button(main, text="Insertion Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=insertion_page)
+        # merge_button = tk.Button(main, text="Merge Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=merge_page)
 
         # PLACEMENTS
-        title.grid(row=0, column=1)
-        selection.grid(row=1, column=1)
+        title.grid(row=0, column=0)
+        selection.grid(row=1, column=0)
         bubble_button.grid(row=2, column=0, padx=5, pady=5)
-        insertion_button.grid(row=2, column=1, padx=5, pady=5)
-        merge_button.grid(row=2, column=2, padx=5, pady=5)
+        # insertion_button.grid(row=2, column=1, padx=5, pady=5)
+        # merge_button.grid(row=2, column=2, padx=5, pady=5)
         main.pack(expand=True)
 
 def display_bubble_info(event):
@@ -172,15 +172,6 @@ def bubble_page():
     
     # PLACEMENT
     bubble_w.mainloop()
-
-
-def insertion_page():
-    print("Insertion Sort Page")
-
-
-def merge_page():
-    print("Merge Sort Page")
-
 
 if __name__ == "__main__":
 
