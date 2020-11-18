@@ -11,6 +11,7 @@ import tkinter.font as tkFont
 from tkinter import messagebox
 from tkinter import *
 from bubblesort import bubble_sort
+from insertionsort import insertion_sort
 import random
 
 # CONSTANTS
@@ -35,15 +36,15 @@ class MainView(tk.Frame):
         title = tk.Label(main, text="AlgoViz", background=GRAY, font=fontStyle1)
         selection = tk.Label(main, text="Algorithms", background=GRAY, font=fontStyle2)
         bubble_button = tk.Button(main, text="Bubble Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=bubble_page)
-        # insertion_button = tk.Button(main, text="Insertion Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=insertion_page)
-        # merge_button = tk.Button(main, text="Merge Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=merge_page)
+        insertion_button = tk.Button(main, text="Insertion Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=insertion_page)
+        merge_button = tk.Button(main, text="Merge Sort", borderwidth=1, width=12, height=1, relief="solid", bg=GRAY, font=fontStyle3, command=merge_page)
 
         # PLACEMENTS
-        title.grid(row=0, column=0)
-        selection.grid(row=1, column=0)
+        title.grid(row=0, column=1)
+        selection.grid(row=1, column=1)
         bubble_button.grid(row=2, column=0, padx=5, pady=5)
-        # insertion_button.grid(row=2, column=1, padx=5, pady=5)
-        # merge_button.grid(row=2, column=2, padx=5, pady=5)
+        insertion_button.grid(row=2, column=3, padx=5, pady=5)
+        merge_button.grid(row=2, column=1, padx=5, pady=5)
         main.pack(expand=True)
 
 def display_bubble_info(event):
@@ -101,6 +102,12 @@ def start_bubble(event, canvas, sort, i_count):
     count = 0
     i_count["text"] = f"{count}"
     bubble_sort(arr, draw_data, canvas, sort, count, i_count)
+
+def start_insertion(event, canvas, sort, i_count):
+    global arr, count
+    count = 0
+    i_count["text"] = f"{count}"
+    insertion_sort(arr, draw_data, canvas, sort, count, i_count)
 
 # BUTTON EVENTS
 def bubble_page():
@@ -172,6 +179,78 @@ def bubble_page():
     
     # PLACEMENT
     bubble_w.mainloop()
+
+def merge_page():
+    print("merge")
+
+def insertion_page():
+    # POPUP WINDOW SETTINGS
+    insertion_w = tk.Toplevel(root)
+    insertion_w.configure(bg=GRAY)
+    width = insertion_w.winfo_screenwidth()
+    height = insertion_w.winfo_screenheight()
+    windowWidth = int(width / 2) - int((WIN_RES + 150) / 2)
+    windowHeight = int(height / 2) - int(WIN_RES / 2)
+    insertion_w.geometry(f"{WIN_RES + 150}x{WIN_RES}+{windowWidth}+{windowHeight}")
+    insertion_w.title("Insertion Sort")
+
+    # FONTS
+    insertionTitleStyle = tkFont.Font(family="Lucida Grande", size=18)
+    backButtonStyle = tkFont.Font(family="Lucida Grande", size=10)
+    inputStyle = tkFont.Font(family="Lucida Grande", size=15)
+
+    # USER INTERFACE
+    insertion_title = tk.Label(insertion_w, text="Insertion Sort", background=GRAY, font=insertionTitleStyle)
+    insertion_title.place(x=310, y=10)
+    back_button = tk.Button(insertion_w, text="X", borderwidth=1, width=2, height=1, relief="solid", bg=GRAY, font=backButtonStyle, command=insertion_w.destroy)
+    back_button.place(x=10, y=10)
+
+    canvas = Canvas(insertion_w, width=650, height=350, bg="white")
+    canvas.place(x=45, y=50)
+
+    info_button = tk.Button(insertion_w, text="Information!", borderwidth=1, width=10, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
+    info_button.bind("<Button-1>", display_bubble_info)
+    info_button.place(x=650, y=10)
+
+    min_title = tk.Label(insertion_w, text="Min Value", background=GRAY, width=10, font=inputStyle)
+    min_title.place(x=50, y=415)
+    min_value = tk.Entry(insertion_w, bg=GRAY, width=8, font=inputStyle, relief="solid")
+    min_value.place(x=155, y=415)
+    min_value.insert(0, "0")
+
+    max_title = tk.Label(insertion_w, text="Max Value", background=GRAY, width=10, font=inputStyle)
+    max_title.place(x=260, y=415)
+    max_value = tk.Entry(insertion_w, bg=GRAY, width=8, font=inputStyle, relief="solid")
+    max_value.place(x=365, y=415)
+    max_value.insert(0, "100")
+
+    data_title = tk.Label(insertion_w, text="Data Size", background=GRAY, width=10, font=inputStyle)
+    data_title.place(x=470, y=415)
+    data_value = tk.Entry(insertion_w, bg=GRAY, width=8, font=inputStyle, relief="solid")
+    data_value.place(x=575, y=415)
+    data_value.insert(0, "10")
+
+    # INITIAL DATA
+    global arr, count
+    draw_data(arr, canvas, insertion_w, ['blue' for x in range(len(arr))])
+
+    iteration = tk.Label(insertion_w, text="Iterations:", background=GRAY, font=insertionTitleStyle)
+    iteration.place(x=90, y=10)
+
+    iteration_count = tk.Label(insertion_w, text=f"{count}", width=3, background=GRAY, font=insertionTitleStyle)
+    iteration_count.place(x=200, y=10)
+
+    # SHUFFLE BUTTON
+    shuffle_button = tk.Button(insertion_w, text="Shuffle!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
+    shuffle_button.place(x=575, y=10)
+    shuffle_button.bind("<Button-1>", lambda event, a=canvas, b=min_value, c=max_value, d=data_value, e=insertion_w: shuffle_data(event, a, b, c, d, e))
+
+    start_button = tk.Button(insertion_w, text="Start!", borderwidth=1, width=7, height=1, relief="solid", bg=GRAY, font=backButtonStyle)
+    start_button.place(x=500, y=10)
+    start_button.bind("<Button-1>", lambda event, a=canvas, b=insertion_w, c=iteration_count: start_insertion(event, a, b, c))
+    
+    # PLACEMENT
+    insertion_w.mainloop()
 
 if __name__ == "__main__":
 
