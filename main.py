@@ -95,22 +95,26 @@ def display_selection_info(event):
     info_win.mainloop()
     
 def draw_data(data, canvas, sort, colors):
-    canvas.delete("all")
-    c_height = 350
-    c_width = 650
-    x_width = c_width / (len(data) + 1)
-    offset = 10
-    spacing = 5
-    normalized = [i / max(data) for i in data]
-    for i, height in enumerate(normalized):
-        x0 = i * x_width + offset + spacing
-        y0 = c_height - height * 300
-        x1 = (i + 1) * x_width + offset
-        y1 = c_height
+    canvas.delete("all") # deletes everything from canvas
+    c_height = 350 # height of canvas
+    c_width = 650 # width of canvas
+    x_width = c_width / (len(data) + 1) # width allocated for array
+    offset = 10 # offset from the left side
+    spacing = 5 # spacing between bars
 
-        canvas.create_rectangle(x0, y0, x1, y1, fill=colors[i])
-        canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i])) 
-    sort.update_idletasks()
+    normalized = []
+    for i in data:
+        normalized.append(i / max(data)) # normalized data for scaling
+
+    for i, height in enumerate(normalized):
+        x0 = i * x_width + offset + spacing # sets x0 of rect
+        y0 = c_height - height * 300 # sets y0 of rect
+        x1 = (i + 1) * x_width + offset # sets x1 of rect
+        y1 = c_height # sets y1 of rect
+
+        canvas.create_rectangle(x0, y0, x1, y1, fill=colors[i]) # creates rectangle from points
+        canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i]))  # creats numbering
+    sort.update_idletasks() # update window
 
 def shuffle_data(event, canvas, min_value, max_value, data_value, sort):
     global arr
@@ -139,7 +143,7 @@ def start_selection(event, canvas, sort, i_count):
     i_count["text"] = f"{count}"
     selection_sort(arr, draw_data, canvas, sort, count, i_count)
 
-# BUTTON EVENTS
+# BUTTON PAGES
 def bubble_page():
 
     # POPUP WINDOW SETTINGS
