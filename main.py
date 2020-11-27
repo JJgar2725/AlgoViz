@@ -96,9 +96,9 @@ def display_selection_info(event):
     
 def draw_data(data, canvas, sort, colors):
     canvas.delete("all") # deletes everything from canvas
-    c_height = 350 # height of canvas
-    c_width = 650 # width of canvas
-    x_width = c_width / (len(data) + 1) # width allocated for array
+    cheight = 350 # height of canvas
+    cwidth = 650 # width of canvas
+    xwidth = cwidth / (len(data) + 1) # width allocated for array
     offset = 10 # offset from the left side
     spacing = 5 # spacing between bars
 
@@ -107,10 +107,10 @@ def draw_data(data, canvas, sort, colors):
         normalized.append(i / max(data)) # normalized data for scaling
 
     for i, height in enumerate(normalized):
-        x0 = i * x_width + offset + spacing # sets x0 of rect
-        y0 = c_height - height * 300 # sets y0 of rect
-        x1 = (i + 1) * x_width + offset # sets x1 of rect
-        y1 = c_height # sets y1 of rect
+        x0 = i * xwidth + offset + spacing # sets x0 of rect
+        y0 = cheight - height * 300 # sets y0 of rect
+        x1 = (i + 1) * xwidth + offset # sets x1 of rect
+        y1 = cheight # sets y1 of rect
 
         canvas.create_rectangle(x0, y0, x1, y1, fill=colors[i]) # creates rectangle from points
         canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i]))  # creats numbering
