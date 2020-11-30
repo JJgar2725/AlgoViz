@@ -14,15 +14,15 @@ def selection_sort(arr, draw_data, canvas, sort, count, i_count):
             if arr[min_idx] > arr[j]: 
                 min_idx = j
                 draw_data(arr, canvas, sort, ['green' if x == j or x == min_idx else 'blue' for x in range(len(arr))])
-                time.sleep(0.2)
+                time.sleep(0.5)
             else:
                 draw_data(arr, canvas, sort, ['red' if x == j else 'blue' for x in range(len(arr))])
-                time.sleep(0.2)
+                time.sleep(0.5)
 
               
         # Swap the found minimum element with  
         # the first element         
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
         draw_data(arr, canvas, sort, ['red' if x == i or x == min_idx else 'blue' for x in range(len(arr))])
-        time.sleep(0.2)
+        time.sleep(0.5)
     draw_data(arr, canvas, sort, ['red' for x in range(len(arr))])
